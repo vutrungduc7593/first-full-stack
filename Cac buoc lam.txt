@@ -1,0 +1,18 @@
+1. Các bước thêm tính năng trên Back-end (Chưa sử dụng tới Model):
+
+B1: Tạo simple handler (bắt req và trả res 'Hello world' hoặc req.params)
+
+B2: Tạo route
+
+B3: Test route 
+
+B4: viết logic cho controller và test
+
+2. Các bước thêm tính năng trên Front-end
+* Note: use separate route to send file, if using <a>, js files will not be imported
+
+B1: Tạo view (html)
+
+B2: Tạo controller và import to view (html)
+
+B3: Test

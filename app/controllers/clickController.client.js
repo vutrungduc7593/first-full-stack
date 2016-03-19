@@ -1,5 +1,8 @@
 'use strict';
 
+/* global ajaxFunctions*/
+/* global appUrl*/
+
 (function () {
 
    var addButton = document.querySelector('.btn-add');
