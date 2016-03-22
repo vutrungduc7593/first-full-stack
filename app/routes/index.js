@@ -2,6 +2,7 @@
 
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
+var FoodHandler = require(path + '/app/controllers/foodHandler.server.js');
 
 module.exports = function(app, auth, passport) {
 
@@ -15,6 +16,7 @@ module.exports = function(app, auth, passport) {
 	}
 
 	var clickHandler = new ClickHandler();
+	var foodHandler = new FoodHandler();
 
 	app.route('/')
 		.get(isLoggedIn, function(req, res) {
@@ -60,37 +62,12 @@ module.exports = function(app, auth, passport) {
 		.all(auth);
 
 	app.route('/api/foods')
-		.get(function(req, res) {
-			res.json({
-				status: 'Ok',
-				message: 'Get list of foods'
-			});
-		})
-		.post(function(req, res) {
-			res.json({
-				status: 'Ok',
-				message: 'Add new food'
-			});
-		});
+		.get(foodHandler.getFoods)
+		.post(foodHandler.addFood);
 		
 	app.route('/api/foods/:id')
-		.get(function(req, res) {
-			res.json({
-				status: 'Ok',
-				message: 'Get food #' + req.params.id
-			});
-		})
-		.put(function(req, res) {
-			res.json({
-				status: 'Ok',
-				message: 'Update food #' + req.params.id
-			});
-		})
-		.delete(function(req, res) {
-			res.json({
-				status: 'Ok',
-				message: 'Delete food #' + req.params.id
-			});
-		});
+		.get(foodHandler.getFood)
+		.put(foodHandler.updateFood)
+		.delete(foodHandler.deleteFood);
 
 };

@@ -1,4 +1,4 @@
-1. Các bước thêm tính năng trên Back-end (Chưa sử dụng tới Model):
+1) Các bước thêm tính năng trên Back-end (Chưa sử dụng tới Model):
 
 B1: Tạo simple handler (bắt req và trả res 'Hello world' hoặc req.params)
 
@@ -8,7 +8,7 @@ B3: Test route
 
 B4: viết logic cho controller và test
 
-2. Các bước thêm tính năng trên Front-end
+2) Các bước thêm tính năng trên Front-end
 * Note: use route to use sendFile(), if using <a> to go to .html file, js files will not be imported
 
 B1: Tạo view (html)
@@ -17,7 +17,7 @@ B2: Tạo controller và import to view (html)
 
 B3: Test
 
-3. Các bước deploy lên Heroku:
+3) Các bước deploy lên Heroku:
 Xem: http://www.clementinejs.com/tutorials/tutorial-heroku.html
 Note: 
 1. Dùng: heroku create app_name
@@ -26,3 +26,6 @@ file .env qua, bỏ dòng PORT.
 3. GITHUB_KEY, GITHUB_SECRET phải tạo mới, vì đường dẫn là khác nhau, ko dùng 
 giống như trong c9 được.
 
+4) Các bước thêm tính năng mới với Model:
+
+B1: Tạo model
