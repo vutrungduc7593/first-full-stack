@@ -2,9 +2,8 @@
 
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
-var TimeStampHandler = require(path + '/app/controllers/timestampHandler.server.js');
 
-module.exports = function(app, passport) {
+module.exports = function(app, auth, passport) {
 
 	function isLoggedIn(req, res, next) {
 		if (req.isAuthenticated()) {
@@ -16,13 +15,12 @@ module.exports = function(app, passport) {
 	}
 
 	var clickHandler = new ClickHandler();
-	var timestampHandler = new TimeStampHandler();
 
 	app.route('/')
 		.get(isLoggedIn, function(req, res) {
 			res.sendFile(path + '/public/index.html');
 		});
-		
+
 	app.route('/login')
 		.get(function(req, res) {
 			res.sendFile(path + '/public/login.html');
@@ -34,16 +32,6 @@ module.exports = function(app, passport) {
 			res.redirect('/login');
 		});
 
-	app.route('/profile')
-		.get(isLoggedIn, function(req, res) {
-			res.sendFile(path + '/public/profile.html');
-		});
-
-	app.route('/api/:id')
-		.get(isLoggedIn, function(req, res) {
-			res.json(req.user.github);
-		});
-
 	app.route('/auth/github')
 		.get(passport.authenticate('github'));
 
@@ -53,16 +41,41 @@ module.exports = function(app, passport) {
 			failureRedirect: '/login'
 		}));
 
-	app.route('/api/:id/clicks')
+	app.route('/profile')
+		.get(isLoggedIn, function(req, res) {
+			res.sendFile(path + '/public/profile.html');
+		});
+
+	app.route('/web/api/:id')
+		.get(isLoggedIn, function(req, res) {
+			res.json(req.user.github);
+		});
+
+	app.route('/web/api/:id/clicks')
 		.get(isLoggedIn, clickHandler.getClicks)
 		.post(isLoggedIn, clickHandler.addClick)
 		.delete(isLoggedIn, clickHandler.resetClicks);
-		
-	app.route('/timestamp')
+
+	app.route('/api/*')
+		.all(auth);
+
+	app.route('/api/foods')
 		.get(function(req, res) {
-			res.sendFile(path + '/public/timestamp.html');
-		});	
-	
-	app.route('/api/timestamp/:time')
-		.get(timestampHandler.getTime);
+			res.send('Get a list of foods');
+		})
+		.post(function(req, res) {
+			res.send('Add new food');
+		});
+		
+	app.route('/api/foods/:id')
+		.get(function(req, res) {
+			res.send('Get food #' + req.params.id);
+		})
+		.put(function(req, res) {
+			res.send('Update food #' + req.params.id);
+		})
+		.delete(function(req, res) {
+			res.send('Delete food #' + req.params.id);
+		});
+
 };

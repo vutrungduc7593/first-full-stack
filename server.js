@@ -5,8 +5,10 @@ var routes = require('./app/routes/index.js');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
+var bodyParser = require('body-parser');
 
 var app = express();
+
 require('dotenv').load();
 require('./app/config/passport')(passport);
 
@@ -16,8 +18,11 @@ app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use('/common', express.static(process.cwd() + '/app/common'));
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use(session({
-	secret: 'secretClementine',
+	secret: 'secretMealOrder', // secretMealOrder
 	resave: false,
 	saveUninitialized: true
 }));
@@ -25,7 +30,19 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-routes(app, passport);
+var auth = function(req, res, next) {
+	if (req.method === 'GET' || req.method === 'DELETE') {
+		if (req.query.api_key && req.query.api_key === process.env.API_KEY)
+			return next();
+	} else {
+		if (req.body.api_key && req.body.api_key === process.env.API_KEY)
+			return next();
+	}
+	
+	res.sendStatus(401);
+};
+
+routes(app, auth, passport);
 
 var port = process.env.PORT || 8080;
 app.listen(port,  function () {
