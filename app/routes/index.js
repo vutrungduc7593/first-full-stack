@@ -61,21 +61,36 @@ module.exports = function(app, auth, passport) {
 
 	app.route('/api/foods')
 		.get(function(req, res) {
-			res.send('Get a list of foods');
+			res.json({
+				status: 'Ok',
+				message: 'Get list of foods'
+			});
 		})
 		.post(function(req, res) {
-			res.send('Add new food');
+			res.json({
+				status: 'Ok',
+				message: 'Add new food'
+			});
 		});
 		
 	app.route('/api/foods/:id')
 		.get(function(req, res) {
-			res.send('Get food #' + req.params.id);
+			res.json({
+				status: 'Ok',
+				message: 'Get food #' + req.params.id
+			});
 		})
 		.put(function(req, res) {
-			res.send('Update food #' + req.params.id);
+			res.json({
+				status: 'Ok',
+				message: 'Update food #' + req.params.id
+			});
 		})
 		.delete(function(req, res) {
-			res.send('Delete food #' + req.params.id);
+			res.json({
+				status: 'Ok',
+				message: 'Delete food #' + req.params.id
+			});
 		});
 
 };

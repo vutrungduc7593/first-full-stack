@@ -18,10 +18,14 @@
     "javascript",
     "boilerplate"
   ],
-  "scripts": {
-    "start": "node server.js"
+  "directories": {
+    "test": "test"
   },
-  "author": "Blake Johnston",
+  "scripts": {
+    "start": "node server.js",
+    "test": "mocha test -R spec"
+  },
+  "author": "Vu Trung Duc",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.15.0",
@@ -31,5 +35,10 @@
     "mongoose": "^4.1.0",
     "passport": "^0.3.0",
     "passport-github": "^1.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "superagent": "^1.8.2",
+    "expect.js": "^0.3.1"
   }
 }
