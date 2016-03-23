@@ -57,3 +57,10 @@ node tools/genModel.js NewModel
 3. Sửa controller, route nếu cần
 
 4. Update unit test file
+
+6) Query 
+1. Có thể dùng tiếng việt, nên dùng cấu trúc: new RegExp(query, 'i');
+2. sort có thể thực hiện được với 2 fields( không biết với 3 thì thế nào), 
+muốn tăng thì ghi field không, muốn gỉam thì thêm - vào trước field
+3. select chỉ có tác dụng tới 2 fields (lấy đầu và cuối), muốn lấy thì ghi trường
+nó bỏ những trường còn lại, muốn bỏ thì thêm - ,nó lấy các trường còn lại 
