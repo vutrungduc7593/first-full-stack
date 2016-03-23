@@ -53,9 +53,10 @@ describe('Unit test Temp Model', function() {
 			});
 	});
 
-    // temp.name = 'Updated';
-
 	it('update temp', function(done) {
+	
+		// temp.name = 'Updated';
+	
 		superagent.put('http://localhost:8080/api/temps/' + id)
 			.set('Authorization', authorizationHeader)
 			.send(temp)

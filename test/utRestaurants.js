@@ -54,9 +54,10 @@ describe('Unit test Restaurant Model', function() {
 			});
 	});
 
-    restaurant.name = 'Updated';
-
 	it('update restaurant', function(done) {
+		
+		restaurant.name = 'Updated';
+		
 		superagent.put('http://localhost:8080/api/restaurants/' + id)
 			.set('Authorization', authorizationHeader)
 			.send(restaurant)

@@ -5,6 +5,7 @@ var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
 var FoodHandler = require(path + '/app/controllers/foodHandler.server.js');
 var TableHandler = require(path + '/app/controllers/tableHandler.server.js');
 var RestaurantHandler = require(path + '/app/controllers/restaurantHandler.server.js');
+var OrderHandler = require(path + '/app/controllers/orderHandler.server.js');
 // new Handler
 
 module.exports = function(app, passport) {
@@ -13,6 +14,7 @@ module.exports = function(app, passport) {
 	var foodHandler = new FoodHandler();
 	var tableHandler = new TableHandler();
 	var restaurantHandler = new RestaurantHandler();
+    var orderHandler = new OrderHandler();
     // new Handler Instance
 
 	var auth = function(req, res, next) {
@@ -109,6 +111,15 @@ module.exports = function(app, passport) {
 		.get(restaurantHandler.getDoc)
 		.put(restaurantHandler.updateDoc)
 		.delete(restaurantHandler.deleteDoc);
+
+    app.route('/api/orders')
+    	.get(orderHandler.getDocs)
+    	.post(orderHandler.addDoc);
+
+    app.route('/api/orders/:id')
+    	.get(orderHandler.getDoc)
+    	.put(orderHandler.updateDoc)
+    	.delete(orderHandler.deleteDoc);
 
     // new Route
 	
