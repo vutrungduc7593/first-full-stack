@@ -16,7 +16,7 @@ describe('Unit test Order Model', function() {
 		order._table = 1;
 
 		order.items.push({
-			food: '56f288046eb89704239d67b7',
+			food: '56f2aacf417e29e42a58524f',
 			note: 'No spicy'
 		});
 	});

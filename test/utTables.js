@@ -10,9 +10,11 @@ describe('Unit test Table Model', function() {
 	var authorizationHeader = 'Basic: ' + encodedData;
 	
 	var table = new Table();
-	table._id = 1;
 
 	it('add table', function(done) {
+		
+		table._id = 11;
+		
 		superagent.post('http://localhost:8080/api/tables')
 			.set('Authorization', authorizationHeader)
 			.send(table)
