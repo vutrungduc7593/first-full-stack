@@ -3,7 +3,7 @@
 var superagent = require('superagent');
 var expect = require('expect.js');
 
-describe('meal-order rest api server', function() {
+describe('Unit test Food Model', function() {
 
 	var encodedData = new Buffer('23032016:apikey23032016').toString('base64');
 	var authorizationHeader = 'Basic: ' + encodedData;
@@ -19,7 +19,7 @@ describe('meal-order rest api server', function() {
 
 	// Not auth
 	it('add food not auth', function(done) {
-		superagent.post('http://localhost:8080/api/foods')
+		superagent.get('http://localhost:8080/api/foods')
 			.end(function(e, res) {
 				expect(e).not.to.be(null);
 				expect(res.status).to.be(401);
@@ -30,7 +30,7 @@ describe('meal-order rest api server', function() {
 	// Auth
 	var id;
 	
-	it('add food error', function(done) {
+	it('add food error - should occurs validationError', function(done) {
 		superagent.post('http://localhost:8080/api/foods')
 			.set('Authorization', authorizationHeader)
 			.send({

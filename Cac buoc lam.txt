@@ -28,4 +28,32 @@ giống như trong c9 được.
 
 4) Các bước thêm tính năng mới với Model:
 
+(Note: Các kiểu test là do mình định nghĩa, có thể không đúng với định nghĩa 
+gốc)
+
 B1: Tạo model
+
+B2: Tạo route, res simple test
+
+B3: Viết test unit từng route và test 
+(test unit là CRUD cho dimension tables)
+
+B4: Viết controller cho model và thay vào rout 
+
+B5: Update test unit và test
+
+B6: Viết test case cho user story 
+(test case là cho bảng fact, bắt major branch và exception branchs)
+
+B7: (Option) Gen và add sample data để test trên clients
+
+5) Các bước thêm model mới:
+
+1. Chạy lệnh:
+node tools/genModel.js NewModel
+
+2. Mở model để thêm thuộc tính, hàm static, methods, ...
+
+3. Sửa controller, route nếu cần
+
+4. Update unit test file

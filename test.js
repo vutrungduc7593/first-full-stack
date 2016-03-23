@@ -1,13 +1,21 @@
-var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+var string = "893500230101";
 
-function getTime(time) {
-    console.log(time + ' ' + Number(time));
-    var date = new Date(isNaN(time) ? time : Number(time));
-    return { unix: date.getTime(), natural: date.getTime() ? months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() : null };
-}
+var nums = string.split('').map(function (val) {
+    return Number(val);
+});
 
-console.log(getTime("March 19, 2016"));
-console.log(getTime("1458345600000"));
-console.log(getTime("amcasd123"));
+var b1 = nums.reduce(function (pv, cv, i) {
+    return i % 2 === 0 ? pv + 0 : pv + cv;
+});
 
-console.log(new Date(1458345600000));
+var b2 = b1 * 3;
+
+var b3 = nums.reduce(function (pv, cv, i) {
+    return i % 2 === 1 ? pv + 0 : pv + cv;
+});
+
+var b4 = b2 + b3;
+
+var b5 = Math.ceil(b4 / 10) * 10 - b4;
+
+console.log(b5);

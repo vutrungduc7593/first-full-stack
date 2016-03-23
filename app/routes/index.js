@@ -3,8 +3,17 @@
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
 var FoodHandler = require(path + '/app/controllers/foodHandler.server.js');
+var TableHandler = require(path + '/app/controllers/tableHandler.server.js');
+var RestaurantHandler = require(path + '/app/controllers/restaurantHandler.server.js');
+// new Handler
 
 module.exports = function(app, passport) {
+
+	var clickHandler = new ClickHandler();
+	var foodHandler = new FoodHandler();
+	var tableHandler = new TableHandler();
+	var restaurantHandler = new RestaurantHandler();
+    // new Handler Instance
 
 	var auth = function(req, res, next) {
 		if (req.headers.authorization) {
@@ -31,9 +40,6 @@ module.exports = function(app, passport) {
 			res.redirect('/login');
 		}
 	}
-
-	var clickHandler = new ClickHandler();
-	var foodHandler = new FoodHandler();
 
 	app.route('/')
 		.get(isLoggedIn, function(req, res) {
@@ -79,11 +85,31 @@ module.exports = function(app, passport) {
 		.all(auth);
 
 	app.route('/api/foods')
-		.get(foodHandler.getFoods)
-		.post(foodHandler.addFood);
+		.get(foodHandler.getDocs)
+		.post(foodHandler.addDoc);
 
 	app.route('/api/foods/:id')
-		.get(foodHandler.getFood)
-		.put(foodHandler.updateFood)
-		.delete(foodHandler.deleteFood);
+		.get(foodHandler.getDoc)
+		.put(foodHandler.updateDoc)
+		.delete(foodHandler.deleteDoc);
+		
+	app.route('/api/tables')
+		.get(tableHandler.getDocs)
+		.post(tableHandler.addDoc);
+
+	app.route('/api/tables/:id')
+		.get(tableHandler.getDoc)
+		.delete(tableHandler.deleteDoc);
+		
+	app.route('/api/restaurants')
+		.get(restaurantHandler.getDocs)
+		.post(restaurantHandler.addDoc);
+
+	app.route('/api/restaurants/:id')
+		.get(restaurantHandler.getDoc)
+		.put(restaurantHandler.updateDoc)
+		.delete(restaurantHandler.deleteDoc);
+
+    // new Route
+	
 };
