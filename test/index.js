@@ -17,8 +17,6 @@ describe('meal-order rest api server', function() {
 	    System.out.println(new String(decoded));
 	*/
 
-	console.log(encodedData);
-
 	// Not auth
 	it('add food not auth', function(done) {
 		superagent.post('http://localhost:8080/api/foods')
@@ -31,14 +29,31 @@ describe('meal-order rest api server', function() {
 
 	// Auth
 	var id;
+	
+	it('add food error', function(done) {
+		superagent.post('http://localhost:8080/api/foods')
+			.set('Authorization', authorizationHeader)
+			.send({
+				name: null,
+				type: 'Gà',
+				price: 100
+			})
+			.end(function(e, res) {
+				expect(e).to.eql(null);
+				expect(typeof res.body).to.eql('object');
+				expect(res.body.status).to.eql('ERROR');
+				expect(res.body.message).to.eql('ValidationError: Path `name` is required.');
+				expect(res.body.data).to.eql(null);
+				done();
+			});
+	});
 
-	it('add food', function(done) {
+	it('add food - default #price, should not save #note', function(done) {
 		superagent.post('http://localhost:8080/api/foods')
 			.set('Authorization', authorizationHeader)
 			.send({
 				name: 'Gà đông cô',
 				type: 'Gà',
-				price: 100,
 				note: 'Very tasty'
 			})
 			.end(function(e, res) {
@@ -47,8 +62,9 @@ describe('meal-order rest api server', function() {
 				expect(res.body.status).to.eql('OK');
 				expect(res.body.message).to.eql('Add new food');
 				expect(res.body.data).not.to.eql(null);
-				expect(res.body.data.note).to.eql(undefined);
 				id = res.body.data;
+				
+				expect(res.body.data.note).to.eql(undefined); // not save note property
 				done();
 			});
 	});
@@ -79,25 +95,7 @@ describe('meal-order rest api server', function() {
 			});
 	});
 
-	it('add food error', function(done) {
-		superagent.post('http://localhost:8080/api/foods')
-			.set('Authorization', authorizationHeader)
-			.send({
-				name: null,
-				type: 'Gà',
-				price: 100
-			})
-			.end(function(e, res) {
-				expect(e).to.eql(null);
-				expect(typeof res.body).to.eql('object');
-				expect(res.body.status).to.eql('ERROR');
-				expect(res.body.message).to.eql('ValidationError: Path `name` is required.');
-				expect(res.body.data).to.eql(null);
-				done();
-			});
-	});
-
-	it('get food', function(done) {
+	it('get food: default #price should be saved', function(done) {
 		superagent.get('http://localhost:8080/api/foods/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
@@ -107,6 +105,7 @@ describe('meal-order rest api server', function() {
 				expect(res.body.message).to.eql('Get food');
 				expect(res.body.data._id.length).to.eql(24);
 				expect(res.body.data._id).to.eql(id);
+				expect(res.body.data.price).to.eql(75);
 				done();
 			});
 	});
@@ -117,7 +116,8 @@ describe('meal-order rest api server', function() {
 			.send({
 				name: 'Gà rang',
 				type: 'Món Gà',
-				price: 175
+				price: 175,
+				note: 'hehe'
 			})
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -144,6 +144,7 @@ describe('meal-order rest api server', function() {
 				expect(res.body.data.name).to.eql('Gà rang');
 				expect(res.body.data.type).to.eql('Món Gà');
 				expect(res.body.data.price).to.eql(175);
+				expect(res.body.data.note).to.eql(undefined);
 				done();
 			});
 	});
