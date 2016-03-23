@@ -4,7 +4,24 @@ var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
 var FoodHandler = require(path + '/app/controllers/foodHandler.server.js');
 
-module.exports = function(app, auth, passport) {
+module.exports = function(app, passport) {
+
+	var auth = function(req, res, next) {
+		if (req.headers.authorization) {
+			var auth = req.headers.authorization.split(' ');
+			// var name = auth[0]; (Auth type: Basic - Http basic auth, Bearer - OAuth 2.0 with Bearer Tokens)
+			var encoded = auth[1];
+			var decoded = new Buffer(encoded, 'base64').toString('utf8');
+			var id = decoded.split(':')[0];
+			var secret = decoded.split(':')[1];
+
+			if (id === process.env.API_KEY_ID && secret === process.env.API_KEY_SECRET) {
+				return next();	
+			}
+		}
+		
+		res.sendStatus(401);
+	};
 
 	function isLoggedIn(req, res, next) {
 		if (req.isAuthenticated()) {
@@ -64,10 +81,9 @@ module.exports = function(app, auth, passport) {
 	app.route('/api/foods')
 		.get(foodHandler.getFoods)
 		.post(foodHandler.addFood);
-		
+
 	app.route('/api/foods/:id')
 		.get(foodHandler.getFood)
 		.put(foodHandler.updateFood)
 		.delete(foodHandler.deleteFood);
-
 };

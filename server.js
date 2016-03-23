@@ -30,19 +30,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-var auth = function(req, res, next) {
-	if (req.method === 'GET' || req.method === 'DELETE') {
-		if (req.query.api_key && req.query.api_key === process.env.API_KEY)
-			return next();
-	} else {
-		if (req.body.api_key && req.body.api_key === process.env.API_KEY)
-			return next();
-	}
-	
-	res.sendStatus(401);
-};
-
-routes(app, auth, passport);
+routes(app, passport);
 
 var port = process.env.PORT || 8080;
 app.listen(port,  function () {

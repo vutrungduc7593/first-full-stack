@@ -35,7 +35,7 @@ function FoodHandler() {
 
     this.addFood = function(req, res) {
         Foods
-            .create(req.body.data, function(err, result) {
+            .create(req.body, function(err, result) {
                 if (err) return handleRes.error(res, err);
                 handleRes.send(res, 'Add new food', result._id);
             });
@@ -43,7 +43,7 @@ function FoodHandler() {
 
     this.updateFood = function(req, res) {
         Foods
-            .findOneAndUpdate({ _id: req.params.id }, { $set: req.body.data }, function(err, result) {
+            .findOneAndUpdate({ _id: req.params.id }, req.body, function(err, result) {
                 if (err) return handleRes.error(res, err);
                 handleRes.send(res, 'Update food', result._id);
             });
