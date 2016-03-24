@@ -1,0 +1,10 @@
+I. User story 1:
+
+tables = getAllTables() // Ok
+order = getCurrentOrder(tableId) // 
+
+if (order._id)
+    
+    
+    
+else

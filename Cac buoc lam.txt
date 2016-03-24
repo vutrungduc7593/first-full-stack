@@ -64,3 +64,6 @@ node tools/genModel.js NewModel
 muốn tăng thì ghi field không, muốn gỉam thì thêm - vào trước field
 3. select chỉ có tác dụng tới 2 fields (lấy đầu và cuối), muốn lấy thì ghi trường
 nó bỏ những trường còn lại, muốn bỏ thì thêm - ,nó lấy các trường còn lại 
+
+7) Test query bằng unit test luôn, 
+add sample data bằng mấy file trong db

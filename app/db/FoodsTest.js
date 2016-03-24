@@ -5,8 +5,9 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/localdb');
 
 var db = mongoose.connection;
+var path = process.cwd();
 
-var Foods = require(__dirname + '/app/models/foods.js');
+var Foods = require(path + '/app/models/foods.js');
 var limit; // get all if undefined
 var sort = 'type,price'; // price: asc, -price: desc
 // name: includes name, exclude all other (except _id - always visible except explicit hide)
