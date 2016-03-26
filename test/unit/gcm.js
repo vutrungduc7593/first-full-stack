@@ -8,6 +8,46 @@ describe('Unit test Table Model', function() {
 	var encodedData = new Buffer('23032016:apikey23032016').toString('base64');
 	var authorizationHeader = 'Basic: ' + encodedData;
 	var endpoint = 'http://localhost:8080';
+	var apiKey = 'AIzaSyAYT4HQPy9v1J_aAiOrBllVR-5fjAfqqf8';
+	var token = 'cpVIcZr8ptQ:APA91bFhP1T1BNU7eKSQgKfza-ZZXkI_tAsL1jw5fUPUFtgCgF4Y6iHhzw6mQHuOGKw1FRhxIQm23BttRxb_minf3RIoX6W3Xaf6fBEWkKNtYXEJL6fdBrIwZElQaiFgo_FwlJADKb2d';
+	
+	it('push notification to topic', function(done) {
+	   superagent.post('https://android.googleapis.com/gcm/send')
+	   		.set('Content-Type', 'application/json')
+	   		.set('Authorization', 'key=' + apiKey)
+	   		.send({
+	   			to: '/topics/global',
+	   			data: {
+	   				message: 'SLucis: Hello To Topic!'
+	   			}
+	   		})
+	   		.end(function (e, res) {
+	   			expect(e).to.eql(null);
+	   			expect(res.status).to.eql(200);
+	   			
+	   			console.log(res.body);
+	   			done();
+	   		});
+	});
+	
+	it('push notification to token', function(done) {
+	   superagent.post('https://android.googleapis.com/gcm/send')
+	   		.set('Content-Type', 'application/json')
+	   		.set('Authorization', 'key=' + apiKey)
+	   		.send({
+	   			to: token,
+	   			data: {
+	   				message: 'SLucis: Hello To Mine!'
+	   			}
+	   		})
+	   		.end(function (e, res) {
+	   			expect(e).to.eql(null);
+	   			expect(res.status).to.eql(200);
+	   			
+	   			console.log(res.body);
+	   			done();
+	   		});
+	});
 	
 	it('register #1', function(done) {
 		superagent.post(endpoint + '/api/gcm/register')
