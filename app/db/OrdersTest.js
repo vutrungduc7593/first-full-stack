@@ -25,13 +25,11 @@ var addSampleData = function() {
                 var order = new Orders();
                 order.paid = true;
                 order._table = Math.floor(Math.random() * 10) + 1;
-                order.items.push({
-                    _food: foodIds[Math.floor(Math.random() * (foodIds.length - 1))],
-                    quantity: Math.floor(Math.random() * 3) + 1,
-                    note: ''
-                });
-
-
+                
+                order._food = foodIds[Math.floor(Math.random() * (foodIds.length - 1))];
+                order.quantity = Math.floor(Math.random() * 3) + 1;
+                order.note = '';
+                
                 orders.push(order);
             }
 
@@ -53,7 +51,7 @@ db.on('open', function() {
     //         console.log(result);
     //     });
     
-    Orders.update({_id: '56f382c2f35c7898121d4866' }, {paid: false}, function (err, result) {
+    Orders.update({_id: '56f66c5d275425df0a3d87e7' }, {paid: false}, function (err, result) {
         if (err) return console.error(err);
         console.log(result);
     });

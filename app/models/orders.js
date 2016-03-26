@@ -13,18 +13,16 @@ var Order = new Schema({
         require: true,
         default: false
     },
-    items: [{
-        _food: {
-            type: Schema.Types.ObjectId,
-            ref: 'Food'
-        },
-        quantity: {
-            type: Number,
-            required: true,
-            default: 1
-        },
-        note: String
-    }]
+    _food: {
+        type: Schema.Types.ObjectId,
+        ref: 'Food'
+    },
+    quantity: {
+        type: Number,
+        required: true,
+        default: 1
+    },
+    note: String
 }, {
     timestamps: {
         createdAt: 'created_at',

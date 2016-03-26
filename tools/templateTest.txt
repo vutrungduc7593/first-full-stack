@@ -8,11 +8,12 @@ describe('Unit test Temp Model', function() {
 	var id;
 	var encodedData = new Buffer('23032016:apikey23032016').toString('base64');
 	var authorizationHeader = 'Basic: ' + encodedData;
+	var endPoint = 'http://localhost:8080';
 	
 	var temp = new Temp();
 
 	it('add temp', function(done) {
-		superagent.post('http://localhost:8080/api/temps')
+		superagent.post(endPoint + '/api/temps')
 			.set('Authorization', authorizationHeader)
 			.send(temp)
 			.end(function(e, res) {
@@ -27,7 +28,7 @@ describe('Unit test Temp Model', function() {
 	});
 
 	it('get all temps', function(done) {
-		superagent.get('http://localhost:8080/api/temps')
+		superagent.get(endPoint + '/api/temps')
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -40,7 +41,7 @@ describe('Unit test Temp Model', function() {
 	});
 
 	it('get temp', function(done) {
-		superagent.get('http://localhost:8080/api/temps/' + id)
+		superagent.get(endPoint + '/api/temps/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -57,7 +58,7 @@ describe('Unit test Temp Model', function() {
 	
 		// temp.name = 'Updated';
 	
-		superagent.put('http://localhost:8080/api/temps/' + id)
+		superagent.put(endPoint + '/api/temps/' + id)
 			.set('Authorization', authorizationHeader)
 			.send(temp)
 			.end(function(e, res) {
@@ -73,7 +74,7 @@ describe('Unit test Temp Model', function() {
 
 
 	it('check update temp', function(done) {
-		superagent.get('http://localhost:8080/api/temps/' + id)
+		superagent.get(endPoint + '/api/temps/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -88,7 +89,7 @@ describe('Unit test Temp Model', function() {
 	});
 
 	it('delete temp', function(done) {
-		superagent.del('http://localhost:8080/api/temps/' + id)
+		superagent.del(endPoint + '/api/temps/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);

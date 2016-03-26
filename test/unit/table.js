@@ -2,7 +2,7 @@
 
 var superagent = require('superagent');
 var expect = require('expect.js');
-var Table = require('../app/models/tables.js');
+var Table = require('../../app/models/tables.js');
 
 describe('Unit test Table Model', function() {
 	var id;

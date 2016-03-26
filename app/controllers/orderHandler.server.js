@@ -3,7 +3,7 @@
 var Orders = require('../models/orders.js');
 var HandleRes = require('../common/handleRes.js');
 
-function FoodHandler() {
+function OrderHandler() {
 
     var handleRes = new HandleRes();
 
@@ -13,7 +13,7 @@ function FoodHandler() {
             .limit(req.query.limit ? Number(req.query.limit) : 50)
             .sort(req.query.sort ? req.query.sort.replace(',', ' ') : null)
             .select(req.query.select ? req.query.select.replace(',', ' ') : null)
-            .populate('items._food');
+            .populate('_food');
 
         if (req.query.table)
             builder.where('_table').equals(Number(req.query.table) ? Number(req.query.table) : 1);
@@ -35,7 +35,7 @@ function FoodHandler() {
             .limit(req.query.limit ? Number(req.query.limit) : 10)
             .sort(req.query.sort ? req.query.sort.replace(',', ' ') : null)
             .select(req.query.select ? req.query.select.replace(',', ' ') : null)
-            .populate('items._food')
+            .populate('_food')
             .exec(function(err, result) {
                 if (err) return handleRes.error(res, err);
                 handleRes.send(res, 'Get order', result);
@@ -72,4 +72,4 @@ function FoodHandler() {
 
 }
 
-module.exports = FoodHandler;
+module.exports = OrderHandler;

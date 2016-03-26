@@ -2,7 +2,7 @@
 
 var superagent = require('superagent');
 var expect = require('expect.js');
-var Restaurant = require('../app/models/restaurants.js');
+var Restaurant = require('../../app/models/restaurants.js');
 
 describe('Unit test Restaurant Model', function() {
 	var id;

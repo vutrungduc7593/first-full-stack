@@ -12,7 +12,8 @@ var User = new Schema({
     },
     nbrClicks: {
         clicks: Number
-    }
+    },
+    gcmIds: [String]
 });
 
 module.exports = mongoose.model('User', User);
