@@ -7,7 +7,7 @@ describe('Unit test Food Model', function() {
 
 	var encodedData = new Buffer('23032016:apikey23032016').toString('base64');
 	var authorizationHeader = 'Basic: ' + encodedData;
-	var end_point = 'https://meal-order-vd.herokuapp.com';
+	var end_point = 'http://localhost:8080';
 
 	/* JAVA
 		byte[] bytes = "23032016:apikey23032016".getBytes();
@@ -55,6 +55,7 @@ describe('Unit test Food Model', function() {
 			.send({
 				name: 'Gà đông cô',
 				type: 'Gà',
+				image: 'Image',
 				note: 'Very tasty'
 			})
 			.end(function(e, res) {
@@ -106,6 +107,7 @@ describe('Unit test Food Model', function() {
 				expect(res.body.message).to.eql('Get food');
 				expect(res.body.data._id.length).to.eql(24);
 				expect(res.body.data._id).to.eql(id);
+				expect(res.body.data.image).to.eql('Image');
 				expect(res.body.data.price).to.eql(75);
 				done();
 			});

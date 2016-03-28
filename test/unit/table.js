@@ -8,7 +8,7 @@ describe('Unit test Table Model', function() {
 	var id;
 	var encodedData = new Buffer('23032016:apikey23032016').toString('base64');
 	var authorizationHeader = 'Basic: ' + encodedData;
-	var end_point = 'http://meal-order-vd.herokuapp.com';
+	var end_point = 'http://localhost:8080';
 	var table = new Table();
 
 	it('add table', function(done) {

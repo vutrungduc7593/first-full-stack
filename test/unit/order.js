@@ -7,7 +7,7 @@ describe('Unit test Order Model', function() {
 	var encodedData;
 	var authorizationHeader;
 	var order;
-	var end_point = 'https://meal-order-vd.herokuapp.com';
+	var end_point = 'http://localhost:8080';
 
 	before(function() {
 		encodedData = new Buffer('23032016:apikey23032016').toString('base64');
