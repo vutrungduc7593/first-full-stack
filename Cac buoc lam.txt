@@ -25,6 +25,7 @@ Note:
 file .env qua, bỏ dòng PORT.
 3. GITHUB_KEY, GITHUB_SECRET phải tạo mới, vì đường dẫn là khác nhau, ko dùng 
 giống như trong c9 được.
+Bắt buộc phải có GITHUB_KEY và GITHUB_SECRET nếu không sẽ không chạy được.
 
 4) Các bước thêm tính năng mới với Model:
 

@@ -7,6 +7,7 @@ describe('Unit test Food Model', function() {
 
 	var encodedData = new Buffer('23032016:apikey23032016').toString('base64');
 	var authorizationHeader = 'Basic: ' + encodedData;
+	var end_point = 'https://meal-order-vd.herokuapp.com';
 
 	/* JAVA
 		byte[] bytes = "23032016:apikey23032016".getBytes();
@@ -19,7 +20,7 @@ describe('Unit test Food Model', function() {
 
 	// Not auth
 	it('add food not auth', function(done) {
-		superagent.get('http://localhost:8080/api/foods')
+		superagent.get(end_point + '/api/foods')
 			.end(function(e, res) {
 				expect(e).not.to.be(null);
 				expect(res.status).to.be(401);
@@ -31,7 +32,7 @@ describe('Unit test Food Model', function() {
 	var id;
 	
 	it('add food error - should occurs validationError', function(done) {
-		superagent.post('http://localhost:8080/api/foods')
+		superagent.post(end_point + '/api/foods')
 			.set('Authorization', authorizationHeader)
 			.send({
 				name: null,
@@ -49,7 +50,7 @@ describe('Unit test Food Model', function() {
 	});
 
 	it('add food - default #price, should not save #note', function(done) {
-		superagent.post('http://localhost:8080/api/foods')
+		superagent.post(end_point + '/api/foods')
 			.set('Authorization', authorizationHeader)
 			.send({
 				name: 'Gà đông cô',
@@ -70,7 +71,7 @@ describe('Unit test Food Model', function() {
 	});
 
 	it('get all foods', function(done) {
-		superagent.get('http://localhost:8080/api/foods')
+		superagent.get(end_point + '/api/foods')
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -83,7 +84,7 @@ describe('Unit test Food Model', function() {
 	});
 
 	it('get some foods by like %name%, sort name DESC', function(done) {
-		superagent.get('http://localhost:8080/api/foods?name=g&sort=-name')
+		superagent.get(end_point + '/api/foods?name=g&sort=-name')
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -96,7 +97,7 @@ describe('Unit test Food Model', function() {
 	});
 
 	it('get food: default #price should be saved', function(done) {
-		superagent.get('http://localhost:8080/api/foods/' + id)
+		superagent.get(end_point + '/api/foods/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -111,7 +112,7 @@ describe('Unit test Food Model', function() {
 	});
 
 	it('update food', function(done) {
-		superagent.put('http://localhost:8080/api/foods/' + id)
+		superagent.put(end_point + '/api/foods/' + id)
 			.set('Authorization', authorizationHeader)
 			.send({
 				name: 'Gà rang',
@@ -132,7 +133,7 @@ describe('Unit test Food Model', function() {
 
 
 	it('check update food', function(done) {
-		superagent.get('http://localhost:8080/api/foods/' + id)
+		superagent.get(end_point + '/api/foods/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -150,7 +151,7 @@ describe('Unit test Food Model', function() {
 	});
 
 	it('delete food', function(done) {
-		superagent.del('http://localhost:8080/api/foods/' + id)
+		superagent.del(end_point + '/api/foods/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);

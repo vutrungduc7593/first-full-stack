@@ -7,6 +7,7 @@ describe('Unit test Order Model', function() {
 	var encodedData;
 	var authorizationHeader;
 	var order;
+	var end_point = 'https://meal-order-vd.herokuapp.com';
 
 	before(function() {
 		encodedData = new Buffer('23032016:apikey23032016').toString('base64');
@@ -20,7 +21,7 @@ describe('Unit test Order Model', function() {
 	});
 
 	it('add order', function(done) {
-		superagent.post('http://localhost:8080/api/orders')
+		superagent.post(end_point + '/api/orders')
 			.set('Authorization', authorizationHeader)
 			.send(order)
 			.end(function(e, res) {
@@ -35,7 +36,7 @@ describe('Unit test Order Model', function() {
 	});
 
 	it('get all orders', function(done) {
-		superagent.get('http://localhost:8080/api/orders')
+		superagent.get(end_point + '/api/orders')
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -61,7 +62,7 @@ describe('Unit test Order Model', function() {
 	// Tested cases: no paid, paid=true, paid=false
 	
 	it('get current orders of table', function(done) {
-		superagent.get('http://localhost:8080/api/orders?table=8&paid=false&sort=-created_at')
+		superagent.get(end_point + '/api/orders?table=8&paid=false&sort=-created_at')
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -85,7 +86,7 @@ describe('Unit test Order Model', function() {
 	});
 
 	it('get order', function(done) {
-		superagent.get('http://localhost:8080/api/orders/' + id)
+		superagent.get(end_point + '/api/orders/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -120,7 +121,7 @@ describe('Unit test Order Model', function() {
 		order.note = 'Updated';
 		order._food = '56f2aacf417e29e42a58523a';
 		
-		superagent.put('http://localhost:8080/api/orders/' + id)
+		superagent.put(end_point + '/api/orders/' + id)
 			.set('Authorization', authorizationHeader)
 			.send(order)
 			.end(function(e, res) {
@@ -135,7 +136,7 @@ describe('Unit test Order Model', function() {
 	});
 
 	it('check update order', function(done) {
-		superagent.get('http://localhost:8080/api/orders/' + id)
+		superagent.get(end_point + '/api/orders/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -165,7 +166,7 @@ describe('Unit test Order Model', function() {
 	});
 
 	it('delete order', function(done) {
-		superagent.del('http://localhost:8080/api/orders/' + id)
+		superagent.del(end_point + '/api/orders/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);

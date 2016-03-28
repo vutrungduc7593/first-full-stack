@@ -8,12 +8,13 @@ describe('Unit test Restaurant Model', function() {
 	var id;
 	var encodedData = new Buffer('23032016:apikey23032016').toString('base64');
 	var authorizationHeader = 'Basic: ' + encodedData;
+	var end_point = 'http://meal-order-vd.herokuapp.com';
 	
 	var restaurant = new Restaurant();
 	restaurant.name = 'Restaurant';
 
 	it('add restaurant', function(done) {
-		superagent.post('http://localhost:8080/api/restaurants')
+		superagent.post(end_point + '/api/restaurants')
 			.set('Authorization', authorizationHeader)
 			.send(restaurant)
 			.end(function(e, res) {
@@ -28,7 +29,7 @@ describe('Unit test Restaurant Model', function() {
 	});
 
 	it('get all restaurants', function(done) {
-		superagent.get('http://localhost:8080/api/restaurants')
+		superagent.get(end_point + '/api/restaurants')
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -41,7 +42,7 @@ describe('Unit test Restaurant Model', function() {
 	});
 
 	it('get restaurant', function(done) {
-		superagent.get('http://localhost:8080/api/restaurants/' + id)
+		superagent.get(end_point + '/api/restaurants/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -58,7 +59,7 @@ describe('Unit test Restaurant Model', function() {
 		
 		restaurant.name = 'Updated';
 		
-		superagent.put('http://localhost:8080/api/restaurants/' + id)
+		superagent.put(end_point + '/api/restaurants/' + id)
 			.set('Authorization', authorizationHeader)
 			.send(restaurant)
 			.end(function(e, res) {
@@ -74,7 +75,7 @@ describe('Unit test Restaurant Model', function() {
 
 
 	it('check update restaurant', function(done) {
-		superagent.get('http://localhost:8080/api/restaurants/' + id)
+		superagent.get(end_point + '/api/restaurants/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -89,7 +90,7 @@ describe('Unit test Restaurant Model', function() {
 	});
 
 	it('delete restaurant', function(done) {
-		superagent.del('http://localhost:8080/api/restaurants/' + id)
+		superagent.del(end_point + '/api/restaurants/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);

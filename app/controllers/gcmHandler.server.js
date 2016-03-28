@@ -12,7 +12,6 @@ function GcmHandler() {
     var handleRes = new HandleRes();
 
     var send = function (id) {
-        console.log(id);
         count++;
         countSuccess++;
     };

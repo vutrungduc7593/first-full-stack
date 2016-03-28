@@ -8,14 +8,14 @@ describe('Unit test Table Model', function() {
 	var id;
 	var encodedData = new Buffer('23032016:apikey23032016').toString('base64');
 	var authorizationHeader = 'Basic: ' + encodedData;
-	
+	var end_point = 'http://meal-order-vd.herokuapp.com';
 	var table = new Table();
 
 	it('add table', function(done) {
 		
 		table._id = 11;
 		
-		superagent.post('http://localhost:8080/api/tables')
+		superagent.post(end_point + '/api/tables')
 			.set('Authorization', authorizationHeader)
 			.send(table)
 			.end(function(e, res) {
@@ -30,7 +30,7 @@ describe('Unit test Table Model', function() {
 	});
 
 	it('get all tables', function(done) {
-		superagent.get('http://localhost:8080/api/tables')
+		superagent.get(end_point + '/api/tables')
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -43,7 +43,7 @@ describe('Unit test Table Model', function() {
 	});
 
 	it('get table', function(done) {
-		superagent.get('http://localhost:8080/api/tables/' + id)
+		superagent.get(end_point + '/api/tables/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -56,7 +56,7 @@ describe('Unit test Table Model', function() {
 	});
 
 	it('delete table', function(done) {
-		superagent.del('http://localhost:8080/api/tables/' + id)
+		superagent.del(end_point + '/api/tables/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);

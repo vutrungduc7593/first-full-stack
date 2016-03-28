@@ -7,6 +7,7 @@ describe('Unit test Table Model', function() {
 	var ids = [];
 	var encodedData = new Buffer('23032016:apikey23032016').toString('base64');
 	var authorizationHeader = 'Basic: ' + encodedData;
+	//var endpoint = 'https://meal-order-vd.herokuapp.com';
 	var endpoint = 'http://localhost:8080';
 	var apiKey = 'AIzaSyAYT4HQPy9v1J_aAiOrBllVR-5fjAfqqf8';
 	var token = 'cpVIcZr8ptQ:APA91bFhP1T1BNU7eKSQgKfza-ZZXkI_tAsL1jw5fUPUFtgCgF4Y6iHhzw6mQHuOGKw1FRhxIQm23BttRxb_minf3RIoX6W3Xaf6fBEWkKNtYXEJL6fdBrIwZElQaiFgo_FwlJADKb2d';
@@ -24,8 +25,6 @@ describe('Unit test Table Model', function() {
 	   		.end(function (e, res) {
 	   			expect(e).to.eql(null);
 	   			expect(res.status).to.eql(200);
-	   			
-	   			console.log(res.body);
 	   			done();
 	   		});
 	});
