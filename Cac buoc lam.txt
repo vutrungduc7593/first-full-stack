@@ -68,3 +68,5 @@ nó bỏ những trường còn lại, muốn bỏ thì thêm - ,nó lấy các 
 
 7) Test query bằng unit test luôn, 
 add sample data bằng mấy file trong db
+
+8) Add wrong ref _id cũng được, nhưng khi populate sẽ trả về undefined

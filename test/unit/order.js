@@ -62,7 +62,7 @@ describe('Unit test Order Model', function() {
 	// Tested cases: no paid, paid=true, paid=false
 	
 	it('get current orders of table', function(done) {
-		superagent.get(end_point + '/api/orders?table=8&paid=false&sort=-created_at')
+		superagent.get(end_point + '/api/orders?table=8&paid=false')
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);

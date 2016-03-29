@@ -2,10 +2,12 @@
 
 var Orders = require('../models/orders.js');
 var HandleRes = require('../common/handleRes.js');
+var GcmHandler = require('./gcmHandler.server.js');
 
 function OrderHandler() {
 
     var handleRes = new HandleRes();
+    var gcmHandler = new GcmHandler();
 
     this.getDocs = function(req, res) {
         var builder = Orders
@@ -46,6 +48,10 @@ function OrderHandler() {
         Orders
             .create(req.body, function(err, result) {
                 if (err) return handleRes.error(res, err);
+                
+                // No need wait to push success
+                gcmHandler.pushNewOrder(result);
+                
                 handleRes.send(res, 'Add new order', result._id);
             });
     };

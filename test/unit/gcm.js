@@ -8,8 +8,10 @@ describe('Unit test GCM', function() {
 	var encodedData = new Buffer('23032016:apikey23032016').toString('base64');
 	var authorizationHeader = 'Basic: ' + encodedData;
 	var endpoint = 'http://localhost:8080';
-	var apiKey = 'AIzaSyAYT4HQPy9v1J_aAiOrBllVR-5fjAfqqf8';
-	var token = 'cpVIcZr8ptQ:APA91bFhP1T1BNU7eKSQgKfza-ZZXkI_tAsL1jw5fUPUFtgCgF4Y6iHhzw6mQHuOGKw1FRhxIQm23BttRxb_minf3RIoX6W3Xaf6fBEWkKNtYXEJL6fdBrIwZElQaiFgo_FwlJADKb2d';
+	//var apiKey = 'AIzaSyAYT4HQPy9v1J_aAiOrBllVR-5fjAfqqf8';
+	var apiKey = 'AIzaSyAo3a_RdaywlXhKNhQ0tAPeFhuwwRO0hNw';
+	//var token = 'cpVIcZr8ptQ:APA91bFhP1T1BNU7eKSQgKfza-ZZXkI_tAsL1jw5fUPUFtgCgF4Y6iHhzw6mQHuOGKw1FRhxIQm23BttRxb_minf3RIoX6W3Xaf6fBEWkKNtYXEJL6fdBrIwZElQaiFgo_FwlJADKb2d';
+	var token = 'cZA6ucP4Eqg:APA91bFyrZPusdHz0bbn5n9fTUY9RbA7-Db1vU_aNz78446v0jdxTBHC6Jgj4JGfLR4W45EoRXDRgAe4N32hEfS67XwDdbmTp5Yzb-CV_jWYTkMvQN4IP2UglFhrXOwpPufkVTaCR3Fy';
 	
 	it('push notification to topic', function(done) {
 	   superagent.post('https://android.googleapis.com/gcm/send')
