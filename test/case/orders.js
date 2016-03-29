@@ -38,7 +38,7 @@ describe('Test case Pay Orders', function() {
                 expect(e).to.eql(null);
                 expect(typeof res.body).to.eql('object');
                 expect(res.body.status).to.eql('OK');
-                expect(res.body.message).to.eql('Paid orders');
+                expect(res.body.message).to.eql('Paid order');
                 expect(res.body.data).not.to.eql(null);
                 expect(res.body.data).to.eql('56f66c5d275425df0a3d87e7');
                 done();

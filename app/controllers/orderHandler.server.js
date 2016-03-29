@@ -73,7 +73,7 @@ function OrderHandler() {
                 
                 gcmHandler.payOrder(result);
                  
-                handleRes.send(res, 'Update order', result._id);
+                handleRes.send(res, 'Paid order', result._id);
             });
     };
 
