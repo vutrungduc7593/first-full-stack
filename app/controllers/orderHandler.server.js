@@ -66,11 +66,11 @@ function OrderHandler() {
 
     this.payOrder = function (req, res) {
         
-        console.log(req.body.id);
+        console.log(req.body._id);
         
         Orders
             .findOneAndUpdate({
-                _id: req.body.id
+                _id: req.body._id
             }, { paid: true }, function(err, result) {
                 if (err) return handleRes.error(res, err);
                 
