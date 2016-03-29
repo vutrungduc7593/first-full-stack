@@ -28,6 +28,14 @@ function OrderHandler() {
             handleRes.send(res, 'Get list of orders', result);
         });
     };
+    
+    this.payOrders = function (req, res) {
+        Orders
+            .update({ _id: { $in: req.body.ids } }, { paid: true }, { multi: true }, function (err, result) {
+                if (err) return handleRes.error(res, err);
+                handleRes.send(res, 'Paid orders', result.nModified);
+            });
+    };
 
     this.getDoc = function(req, res) {
         Orders
@@ -56,12 +64,26 @@ function OrderHandler() {
             });
     };
 
+    this.payOrder = function (req, res) {
+        Orders
+            .findOneAndUpdate({
+                _id: req.body.id
+            }, { paid: true }, function(err, result) {
+                if (err) return handleRes.error(res, err);
+                
+                gcmHandler.payOrder(result);
+                 
+                handleRes.send(res, 'Update order', result._id);
+            });
+    };
+
     this.updateDoc = function(req, res) {
         Orders
             .findOneAndUpdate({
                 _id: req.params.id
             }, req.body, function(err, result) {
                 if (err) return handleRes.error(res, err);
+                
                 handleRes.send(res, 'Update order', result._id);
             });
     };

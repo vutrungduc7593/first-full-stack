@@ -88,13 +88,40 @@ function GcmHandler() {
     };
 
     this.pushNewOrder = function(order) {
-        
-        order.populate('_food', function (err, populatedOrder) {
+
+        order.populate('_food', function(err, populatedOrder) {
             if (err) return console.error(err);
-            
+
             console.log(populatedOrder);
-            
+
             request({
+                    method: 'POST',
+                    uri: 'https://android.googleapis.com/gcm/send',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'key=' + process.env.GCM_KEY
+                    },
+                    body: JSON.stringify({
+                        to: '/topics/global',
+                        data: {
+                            message: 'NEW_ORDER',
+                            data: populatedOrder
+                        }
+                    })
+                },
+                function(error, response, body) {
+                    if (error) return console.error(error);
+                    //console.log('Push success');
+                }
+            );
+
+        });
+
+    };
+
+    this.payOrder = function(order) {
+
+        request({
                 method: 'POST',
                 uri: 'https://android.googleapis.com/gcm/send',
                 headers: {
@@ -104,8 +131,8 @@ function GcmHandler() {
                 body: JSON.stringify({
                     to: '/topics/global',
                     data: {
-                        message: 'NEW_ORDER',
-                        data: populatedOrder
+                        message: 'PAY_ORDER',
+                        data: order._id
                     }
                 })
             },
@@ -114,9 +141,7 @@ function GcmHandler() {
                 //console.log('Push success');
             }
         );
-                
-        });
-        
+
     };
 
 }

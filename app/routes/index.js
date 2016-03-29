@@ -119,6 +119,9 @@ module.exports = function(app, passport) {
     app.route('/api/orders')
     	.get(orderHandler.getDocs)
     	.post(orderHandler.addDoc);
+    	
+    app.route('/api/orders/pay')
+    	.post(orderHandler.payOrder);
 
     app.route('/api/orders/:id')
     	.get(orderHandler.getDoc)

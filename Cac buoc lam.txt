@@ -70,3 +70,6 @@ nó bỏ những trường còn lại, muốn bỏ thì thêm - ,nó lấy các 
 add sample data bằng mấy file trong db
 
 8) Add wrong ref _id cũng được, nhưng khi populate sẽ trả về undefined
+
+9) Các bước push gcm:
+(Xem ví dụ add new order)
