@@ -65,15 +65,21 @@ function OrderHandler() {
     };
 
     this.payOrder = function (req, res) {
+        
+        console.log(req.body.id);
+        
         Orders
             .findOneAndUpdate({
                 _id: req.body.id
             }, { paid: true }, function(err, result) {
                 if (err) return handleRes.error(res, err);
                 
-                gcmHandler.payOrder(result);
-                 
-                handleRes.send(res, 'Paid order', result._id);
+                if (result) {
+                    gcmHandler.payOrder(result);   
+                    handleRes.send(res, 'Paid order', result._id);
+                } else {
+                    handleRes.error(res, new Error('Not found order'));
+                }
             });
     };
 
