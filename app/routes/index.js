@@ -8,6 +8,7 @@ var RestaurantHandler = require(path + '/app/controllers/restaurantHandler.serve
 var OrderHandler = require(path + '/app/controllers/orderHandler.server.js');
 var GcmHandler = require(path + '/app/controllers/gcmHandler.server.js');
 var UserHandler = require(path + '/app/controllers/userHandler.server.js');
+var CategoryHandler = require(path + '/app/controllers/categoryHandler.server.js');
 // new Handler
 
 module.exports = function(app, passport) {
@@ -19,6 +20,7 @@ module.exports = function(app, passport) {
     var orderHandler = new OrderHandler();
     var gcmHandler = new GcmHandler();
     var userHandler = new UserHandler();
+    var categoryHandler = new CategoryHandler();
     // new Handler Instance
 
 	var auth = function(req, res, next) {
@@ -142,6 +144,15 @@ module.exports = function(app, passport) {
     	
     app.route('/api/gcm/push')
     	.post(gcmHandler.pushNotification);
+
+    app.route('/api/categories')
+    	.get(categoryHandler.getCategories)
+    	.post(categoryHandler.addCategory);
+
+    app.route('/api/categories/:id')
+    	.get(categoryHandler.getCategory)
+    	.put(categoryHandler.updateCategory)
+    	.delete(categoryHandler.deleteCategory);
 
     // new Route
 	

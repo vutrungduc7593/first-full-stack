@@ -36,6 +36,7 @@
     "node-gcm": "^0.14.0",
     "passport": "^0.3.0",
     "passport-github": "^1.0.0",
+    "pluralize": "^1.2.1",
     "request": "^2.69.0"
   },
   "devDependencies": {

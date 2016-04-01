@@ -1,17 +1,17 @@
 'use strict';
 
-var Temps = require('../models/temps.js');
+var Categories = require('../models/categories.js');
 var HandleRes = require('../common/handleRes.js');
 
-function TempHandler() {
+function CategoryHandler() {
     
     var handleRes = new HandleRes();
 
-    this.getTemps = function(req, res) {
+    this.getCategories = function(req, res) {
     
         // var pRange = req.query.price ? req.query.price.split(',') : '';
     
-        Temps
+        Categories
             .find({
                 // name: new RegExp(req.query.name, 'i'),
                 // price: {
@@ -24,46 +24,46 @@ function TempHandler() {
             .select(req.query.select ? req.query.select.replace(',', ' ') : '')
             .exec(function(err, result) {
                 if (err) return handleRes.error(res, err);
-                handleRes.send(res, 'Get list of temps', result);
+                handleRes.send(res, 'Get list of categories', result);
             });
     };
 
-    this.getTemp = function(req, res) {
-        Temps
+    this.getCategory = function(req, res) {
+        Categories
             .findOne({_id: req.params.id})
             .limit(req.query.limit ? Number(req.query.limit) : 10)
             .sort(req.query.sort ? req.query.sort.replace(',', ' ') : null)
             .select(req.query.select ? req.query.select.replace(',', ' ') : null)
             .exec(function(err, result) {
                 if (err) return handleRes.error(res, err);
-                handleRes.send(res, 'Get temp', result);
+                handleRes.send(res, 'Get category', result);
             });
     };
 
-    this.addTemp = function(req, res) {
-        Temps
+    this.addCategory = function(req, res) {
+        Categories
             .create(req.body, function(err, result) {
                 if (err) return handleRes.error(res, err);
-                handleRes.send(res, 'Add new temp', result._id);
+                handleRes.send(res, 'Add new category', result._id);
             });
     };
 
-    this.updateTemp = function(req, res) {
-        Temps
+    this.updateCategory = function(req, res) {
+        Categories
             .findOneAndUpdate({ _id: req.params.id }, req.body, function(err, result) {
                 if (err) return handleRes.error(res, err);
-                handleRes.send(res, 'Update temp', result._id);
+                handleRes.send(res, 'Update category', result._id);
             });
     };
 
-    this.deleteTemp = function(req, res) {
-        Temps
+    this.deleteCategory = function(req, res) {
+        Categories
             .remove({ _id: req.params.id }, function(err, result) {
                 if (err) return handleRes.error(res, err);
-                handleRes.send(res, 'Delete temp', result.result.n);
+                handleRes.send(res, 'Delete category', result.result.n);
             });
     };
 
 }
 
-module.exports = TempHandler;
+module.exports = CategoryHandler;

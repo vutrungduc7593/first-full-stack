@@ -1,3 +1,20 @@
+var pluralize = require('pluralize');
+
+var input = process.argv[2].toLowerCase();
+
+var Model = input.charAt(0).toUpperCase() + input.substr(1).toLowerCase();
+var ModelsString = pluralize(Model);
+var model = Model.toLowerCase();
+var modelsString = ModelsString.toLowerCase();
+
+console.log(Model);
+console.log(ModelsString);
+console.log(model);
+console.log(modelsString);
+
+
+return;
+
 var qnum;
 
 var num = Number(qnum);
