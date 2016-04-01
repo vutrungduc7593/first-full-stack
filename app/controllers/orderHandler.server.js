@@ -66,7 +66,7 @@ function OrderHandler() {
 
     this.payOrder = function (req, res) {
         
-        console.log(req.body._id);
+        // console.log(req.body._id);
         
         Orders
             .findOneAndUpdate({

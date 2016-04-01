@@ -92,8 +92,6 @@ function GcmHandler() {
         order.populate('_food', function(err, populatedOrder) {
             if (err) return console.error(err);
 
-            console.log(populatedOrder);
-
             request({
                     method: 'POST',
                     uri: 'https://android.googleapis.com/gcm/send',

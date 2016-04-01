@@ -8,6 +8,8 @@ describe('Unit test Order Model', function() {
 	var authorizationHeader;
 	var order;
 	var end_point = 'http://localhost:8080';
+	var chickenFood = '56fde5dd1c72737a16033a23';
+	var cocaDrink = '56fde5dd1c72737a16033a24';
 
 	before(function() {
 		encodedData = new Buffer('23032016:apikey23032016').toString('base64');
@@ -16,7 +18,7 @@ describe('Unit test Order Model', function() {
 		order = new Order();
 		order._table = 1;
 
-		order._food = '56f2aacf417e29e42a58524f';
+		order._food = chickenFood;
 		order.note = 'No spicy';
 	});
 
@@ -62,7 +64,7 @@ describe('Unit test Order Model', function() {
 	// Tested cases: no paid, paid=true, paid=false
 	
 	it('get current orders of table', function(done) {
-		superagent.get(end_point + '/api/orders?table=8&paid=false')
+		superagent.get(end_point + '/api/orders?table=1&paid=false')
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
@@ -103,7 +105,7 @@ describe('Unit test Order Model', function() {
 				
 				expect(typeof res.body.data._food).to.eql('object');
 				expect(res.body.data._food._id.length).to.eql(24);
-				expect(res.body.data._food._id).to.eql('56f2aacf417e29e42a58524f');
+				expect(res.body.data._food._id).to.eql(chickenFood);
 				
 				expect(res.body.data.note).to.eql('No spicy');
 				
@@ -119,7 +121,7 @@ describe('Unit test Order Model', function() {
 		order.paid = true;
 		order._table = 2;
 		order.note = 'Updated';
-		order._food = '56f2aacf417e29e42a58523a';
+		order._food = cocaDrink;
 		
 		superagent.put(end_point + '/api/orders/' + id)
 			.set('Authorization', authorizationHeader)
@@ -159,7 +161,7 @@ describe('Unit test Order Model', function() {
 				
 				expect(typeof res.body.data._food).to.eql('object');
 				expect(res.body.data._food._id.length).to.eql(24);
-				expect(res.body.data._food._id).to.eql('56f2aacf417e29e42a58523a');
+				expect(res.body.data._food._id).to.eql(cocaDrink);
 				
 				done();
 			});

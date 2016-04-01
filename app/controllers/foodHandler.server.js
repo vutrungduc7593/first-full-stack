@@ -14,7 +14,7 @@ function FoodHandler() {
         Foods
             .find({
                 name: new RegExp(req.query.name, 'i'),
-                type: new RegExp(req.query.type, 'i'),
+                category: new RegExp(req.query.category, 'i'),
                 price: {
                     $gt: pRange[0] ? Number(pRange[0]) : Number.MIN_VALUE,
                     $lt: pRange[1] ? Number(pRange[1]) : Number.MAX_VALUE
