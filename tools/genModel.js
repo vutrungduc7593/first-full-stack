@@ -45,7 +45,7 @@ var newTestFileContent = templateTestFile
                 .replace(/temp/g, model)
                 .replace('/temps/g', model + 's');
 
-fs.writeFile(path + '/test/ut' + Model + 's.js', newTestFileContent, function(err) {
+fs.writeFile(path + '/test/unit' + Model + 's.js', newTestFileContent, function(err) {
     if (err) return console.error(err);
     console.log("The file %s was saved!", 'ut' + Model + 's.js');
 });

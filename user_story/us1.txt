@@ -1,0 +1,5 @@
+US 1:
+1. I can view all tables and table status (active or not)
+2. I can take new order: 
+Choose table > Choose category > Choose Item > Choose Quatity for items > 
+3. 

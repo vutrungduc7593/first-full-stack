@@ -3,6 +3,10 @@
 function HandleRes () {
 
     this.send = function(res, message, result) {
+        res.set({
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        });
         res.json({
             status: 'OK',
             message: message,
@@ -11,6 +15,10 @@ function HandleRes () {
     };
 
     this.error = function(res, error) {
+        res.set({
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        });
         res.json({
            status: 'ERROR',
            message: error.toString(),
