@@ -142,6 +142,29 @@ function GcmHandler() {
 
     };
 
+    this.emit = function (msg, data, token) {
+        request({
+                method: 'POST',
+                uri: 'https://android.googleapis.com/gcm/send',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'key=' + process.env.GCM_KEY
+                },
+                body: JSON.stringify({
+                    to: token || '/topics/global',
+                    data: {
+                        message: msg,
+                        data: data
+                    }
+                })
+            },
+            function(error, response, body) {
+                if (error) return console.error(error);
+                //console.log('Push success');
+            }
+        );
+    };
+
 }
 
 module.exports = GcmHandler;

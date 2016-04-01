@@ -24,7 +24,13 @@ function TempHandler() {
             .select(req.query.select ? req.query.select.replace(',', ' ') : '')
             .exec(function(err, result) {
                 if (err) return handleRes.error(res, err);
-                handleRes.send(res, 'Get list of temps', result);
+                
+                if (result) {
+                    handleRes.send(res, 'Get list of temps', result);
+                } else {
+                    handleRes.error(res, new Error('Not found temps'));
+                }
+                
             });
     };
 
@@ -36,7 +42,13 @@ function TempHandler() {
             .select(req.query.select ? req.query.select.replace(',', ' ') : null)
             .exec(function(err, result) {
                 if (err) return handleRes.error(res, err);
-                handleRes.send(res, 'Get temp', result);
+                
+                if (result) {
+                    handleRes.send(res, 'Get temp', result);
+                } else {
+                    handleRes.error(res, new Error('Not found temp'));
+                }
+                
             });
     };
 
@@ -44,7 +56,13 @@ function TempHandler() {
         Temps
             .create(req.body, function(err, result) {
                 if (err) return handleRes.error(res, err);
-                handleRes.send(res, 'Add new temp', result._id);
+                
+                if (result) {
+                    handleRes.send(res, 'Add new temp', result._id);
+                } else {
+                    handleRes.error(res, new Error('Unable add temp'));
+                }
+                
             });
     };
 
@@ -52,7 +70,13 @@ function TempHandler() {
         Temps
             .findOneAndUpdate({ _id: req.params.id }, req.body, function(err, result) {
                 if (err) return handleRes.error(res, err);
-                handleRes.send(res, 'Update temp', result._id);
+                
+                if (result) {
+                    handleRes.send(res, 'Update temp', result._id);
+                } else {
+                    handleRes.error(res, new Error('Unable update temp'));
+                }
+                
             });
     };
 

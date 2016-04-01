@@ -18,8 +18,10 @@ describe('Unit test Order Model', function() {
 		order = new Order();
 		order._table = 1;
 
-		order._food = chickenFood;
-		order.note = 'No spicy';
+		order.items.push({
+			_food: chickenFood,
+			note: 'No spicy'
+		});
 	});
 
 	it('add order', function(done) {
@@ -27,6 +29,7 @@ describe('Unit test Order Model', function() {
 			.set('Authorization', authorizationHeader)
 			.send(order)
 			.end(function(e, res) {
+				
 				expect(e).to.eql(null);
 				expect(typeof res.body).to.eql('object');
 				expect(res.body.status).to.eql('OK');
@@ -50,11 +53,14 @@ describe('Unit test Order Model', function() {
 				for (var i = 0, len = res.body.data; i < len; i++) {
 					var order = res.body.data[i];
 					
-					expect(order.quantity).to.above(0);
+					expect(order.items.length).to.above(0);
 					
-					expect(typeof order._food).to.eql('object');
-					expect(order._food._id.length).to.eql(24);
-					expect(order._food.price).to.above(0);
+					var orderItem = order.items[0];
+					
+					expect(orderItem.quantity).to.above(0);
+					expect(typeof orderItem._food).to.eql('object');
+					expect(orderItem._food._id.length).to.eql(24);
+					expect(orderItem._food.price).to.above(0);
 				}
 				
 				done();
@@ -74,14 +80,18 @@ describe('Unit test Order Model', function() {
 				
 				expect(res.body.data.length).to.above(0);
 				
-				expect(res.body.data[0]._id.length).to.eql(24);
+				expect(res.body.data[0]._id).to.above(0);
 				
-				expect(typeof res.body.data[0]._food).to.eql('object');
-				expect(res.body.data[0]._food._id.length).to.eql(24);
-				expect(res.body.data[0]._food.name).not.to.eql(undefined);
-				expect(res.body.data[0]._food.price).to.above(0);
+				expect();
 				
-				expect(res.body.data[0].quantity).to.above(0);
+				expect(res.body.data[0].items.length).to.above(0);
+				
+				expect(typeof res.body.data[0].items[0]._food).to.eql('object');
+				expect(res.body.data[0].items[0]._food._id.length).to.eql(24);
+				expect(res.body.data[0].items[0]._food.name).not.to.eql(undefined);
+				expect(res.body.data[0].items[0]._food.price).to.above(0);
+				
+				expect(res.body.data[0].items[0].quantity).to.above(0);
 				
 				done();
 			});
@@ -96,22 +106,20 @@ describe('Unit test Order Model', function() {
 				expect(res.body.status).to.eql('OK');
 				expect(res.body.message).to.eql('Get order');
 				
-				expect(res.body.data._id.length).to.eql(24);
+				expect(res.body.data._id).to.above(0);
 				expect(res.body.data._id).to.eql(id);
 				
 				expect(res.body.data._table).to.eql(1);
 				
-				expect(res.body.data._id.length).to.eql(24);
+				expect(typeof res.body.data.items[0]._food).to.eql('object');
+				expect(res.body.data.items[0]._food._id.length).to.eql(24);
+				expect(res.body.data.items[0]._food._id).to.eql(chickenFood);
 				
-				expect(typeof res.body.data._food).to.eql('object');
-				expect(res.body.data._food._id.length).to.eql(24);
-				expect(res.body.data._food._id).to.eql(chickenFood);
-				
-				expect(res.body.data.note).to.eql('No spicy');
+				expect(res.body.data.items[0].note).to.eql('No spicy');
 				
 				expect(res.body.data.created_at).not.to.eql(undefined);
 				
-				expect(res.body.data.quantity).to.eql(1);
+				expect(res.body.data.items[0].quantity).to.eql(1);
 
 				done();
 			});
@@ -120,8 +128,8 @@ describe('Unit test Order Model', function() {
 	it('update order - table, paid, note, item[0]', function(done) {
 		order.paid = true;
 		order._table = 2;
-		order.note = 'Updated';
-		order._food = cocaDrink;
+		order.items[0].note = 'Updated';
+		order.items[0]._food = cocaDrink;
 		
 		superagent.put(end_point + '/api/orders/' + id)
 			.set('Authorization', authorizationHeader)
@@ -131,7 +139,7 @@ describe('Unit test Order Model', function() {
 				expect(typeof res.body).to.eql('object');
 				expect(res.body.status).to.eql('OK');
 				expect(res.body.message).to.eql('Update order');
-				expect(res.body.data.length).to.eql(24);
+				expect(res.body.data).to.above(0);
 				expect(res.body.data).to.eql(id);
 				done();
 			});
@@ -146,7 +154,7 @@ describe('Unit test Order Model', function() {
 				expect(res.body.status).to.eql('OK');
 				expect(res.body.message).to.eql('Get order');
 				
-				expect(res.body.data._id.length).to.eql(24);
+				expect(res.body.data._id).to.above(0);
 				expect(res.body.data._id).to.eql(id);
 				
 				expect(res.body.data.created_at).not.to.eql(undefined);
@@ -155,13 +163,12 @@ describe('Unit test Order Model', function() {
 				
 				expect(res.body.data._table).to.eql(2);
 				
-				expect(res.body.data._id.length).to.eql(24);
-				expect(res.body.data.note).to.eql('Updated');
-				expect(res.body.data.quantity).to.eql(1);
+				expect(res.body.data.items[0].note).to.eql('Updated');
+				expect(res.body.data.items[0].quantity).to.eql(1);
 				
-				expect(typeof res.body.data._food).to.eql('object');
-				expect(res.body.data._food._id.length).to.eql(24);
-				expect(res.body.data._food._id).to.eql(cocaDrink);
+				expect(typeof res.body.data.items[0]._food).to.eql('object');
+				expect(res.body.data.items[0]._food._id.length).to.eql(24);
+				expect(res.body.data.items[0]._food._id).to.eql(cocaDrink);
 				
 				done();
 			});

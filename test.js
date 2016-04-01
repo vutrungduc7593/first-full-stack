@@ -1,3 +1,8 @@
+var y;
+var x = y || 'hi';
+console.log(x);
+return;
+
 var pluralize = require('pluralize');
 
 var input = process.argv[2].toLowerCase();
@@ -11,7 +16,6 @@ console.log(Model);
 console.log(ModelsString);
 console.log(model);
 console.log(modelsString);
-
 
 return;
 

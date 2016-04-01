@@ -36,7 +36,7 @@ describe('Unit test Food Model', function() {
 			.set('Authorization', authorizationHeader)
 			.send({
 				name: null,
-				category: 'Gà',
+				_category: 'Gà',
 				price: 100
 			})
 			.end(function(e, res) {
@@ -54,7 +54,7 @@ describe('Unit test Food Model', function() {
 			.set('Authorization', authorizationHeader)
 			.send({
 				name: 'Gà đông cô',
-				category: 'Gà',
+				_category: 'Gà',
 				image: 'Image',
 				note: 'Very tasty'
 			})
@@ -118,7 +118,7 @@ describe('Unit test Food Model', function() {
 			.set('Authorization', authorizationHeader)
 			.send({
 				name: 'Gà rang',
-				category: 'Món Gà',
+				_category: 'Món Gà',
 				price: 175,
 				note: 'hehe'
 			})
@@ -145,7 +145,7 @@ describe('Unit test Food Model', function() {
 				expect(res.body.data._id.length).to.eql(24);
 				expect(res.body.data._id).to.eql(id);
 				expect(res.body.data.name).to.eql('Gà rang');
-				expect(res.body.data.category).to.eql('Món Gà');
+				expect(res.body.data._category).to.eql('Món Gà');
 				expect(res.body.data.price).to.eql(175);
 				expect(res.body.data.note).to.eql(undefined);
 				done();

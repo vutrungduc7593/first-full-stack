@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 var Food = new Schema({
     name: { type: String, required: true },
-    category: { type: String, ref: 'Category' },
+    _category: { type: String, ref: 'Category' },
     image: String,
     price: { type: Number, default: 75 }
 });
