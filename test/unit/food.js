@@ -80,6 +80,9 @@ describe('Unit test Food Model', function() {
 				expect(res.body.status).to.eql('OK');
 				expect(res.body.message).to.eql('Get list of foods');
 				expect(res.body.data.length).to.above(0);
+				
+				console.log(res.body.data);
+				
 				done();
 			});
 	});
