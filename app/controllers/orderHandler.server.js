@@ -70,9 +70,9 @@ function OrderHandler() {
                 result.populate('items._food', function(err, populatedOrder) {
                     if (err) return console.error(err);
                     gcmHandler.emit('NEW_ORDER', populatedOrder);
+                    
+                    handleRes.send(res, 'Add new order', populatedOrder);
                 });
-
-                handleRes.send(res, 'Add new order', result._id);
             });
     };
 

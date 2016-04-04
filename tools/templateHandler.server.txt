@@ -58,7 +58,7 @@ function TempHandler() {
                 if (err) return handleRes.error(res, err);
                 
                 if (result) {
-                    handleRes.send(res, 'Add new temp', result._id);
+                    handleRes.send(res, 'Add new temp', result);
                 } else {
                     handleRes.error(res, new Error('Unable add temp'));
                 }

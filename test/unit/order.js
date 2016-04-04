@@ -29,13 +29,15 @@ describe('Unit test Order Model', function() {
 			.set('Authorization', authorizationHeader)
 			.send(order)
 			.end(function(e, res) {
-				
 				expect(e).to.eql(null);
 				expect(typeof res.body).to.eql('object');
 				expect(res.body.status).to.eql('OK');
 				expect(res.body.message).to.eql('Add new order');
-				expect(res.body.data).not.to.eql(null);
-				id = res.body.data;
+				expect(res.body.data._id).to.above(-1);
+				id = res.body.data._id;
+				expect(res.body.data.items).not.to.eql(null);
+				expect(res.body.data.items.length).to.above(0);
+				expect(res.body.data.items[0]._id.length).to.eql(24);
 				done();
 			});
 	});
