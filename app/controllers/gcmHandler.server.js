@@ -152,6 +152,8 @@ function GcmHandler() {
                 },
                 body: JSON.stringify({
                     to: token || '/topics/global',
+                    delay_while_idle : true,
+                    time_to_live : 3,
                     data: {
                         message: msg,
                         data: data
