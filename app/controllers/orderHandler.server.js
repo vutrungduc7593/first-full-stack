@@ -78,18 +78,16 @@ function OrderHandler() {
 
     this.payOrder = function(req, res) {
 
-        // console.log(req.body._id);
-
         Orders
             .findOneAndUpdate({
-                _id: req.body._id
+                _id: req.params.id
             }, {
                 paid: true
             }, function(err, result) {
                 if (err) return handleRes.error(res, err);
 
                 if (result) {
-                    gcmHandler.payOrder(result);
+                    gcmHandler.emit('PAY_ORDER', result._id);
                     handleRes.send(res, 'Paid order', result._id);
                 }
                 else {

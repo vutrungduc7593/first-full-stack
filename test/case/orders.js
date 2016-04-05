@@ -5,6 +5,7 @@ describe('Test case Pay Orders', function() {
     var encodedData;
     var authorizationHeader;
     var end_point = 'http://localhost:8080';
+    var id = '14';
 
     before(function() {
         encodedData = new Buffer('23032016:apikey23032016').toString('base64');
@@ -29,18 +30,15 @@ describe('Test case Pay Orders', function() {
     // });
     
     it('pay order', function(done) {
-        superagent.post(end_point + '/api/orders/pay')
+        superagent.put(end_point + '/api/orders/' + id + '/pay')
             .set('Authorization', authorizationHeader)
-            .send({
-                id: '56f66c5d275425df0a3d87e7'
-            })
             .end(function(e, res) {
                 expect(e).to.eql(null);
                 expect(typeof res.body).to.eql('object');
                 expect(res.body.status).to.eql('OK');
                 expect(res.body.message).to.eql('Paid order');
                 expect(res.body.data).not.to.eql(null);
-                expect(res.body.data).to.eql('56f66c5d275425df0a3d87e7');
+                expect(res.body.data).to.eql('14');
                 done();
             });
     });

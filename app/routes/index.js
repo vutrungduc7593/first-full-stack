@@ -122,13 +122,13 @@ module.exports = function(app, passport) {
     	.get(orderHandler.getDocs)
     	.post(orderHandler.addDoc);
     	
-    app.route('/api/orders/pay')
-    	.post(orderHandler.payOrder);
-
     app.route('/api/orders/:id')
     	.get(orderHandler.getDoc)
     	.put(orderHandler.updateDoc)
     	.delete(orderHandler.deleteDoc);
+    	
+    app.route('/api/orders/:id/pay')
+    	.put(orderHandler.payOrder);
     	
     app.route('/api/users')
     	.get(userHandler.getUsers);
