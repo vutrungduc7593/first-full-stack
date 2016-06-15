@@ -73,3 +73,28 @@ add sample data bằng mấy file trong db
 
 9) Các bước push gcm:
 (Xem ví dụ add new order)
+
+10) Lỗi angular:
+
+Err01: 
+
+Mô tả:
+Error: [$injector:modulerr] http://errors.angularjs.org/1.5.3/$injector/modulerr?p0=mealOrderApp&p1=[$injector:nomod]
+
+Nguyên nhân:
+Sai tên <html ng-app="mealOrderApp"> và angular.module('clementineApp', [])
+
+Gỉai pháp:
+Đặt tên lại cho đúng: đổi mealOrderApp thanh clementineApp
+
+11) Cài đặt Mean.io:
+
+// cần sudo nếu ko sẽ Access denied
+sudo npm install -g gulp
+sudo npm install -g bower
+
+// cần --unsafe-perm nếu ko bị lỗi: Warning "root" does not have permission to access the dev dir
+sudo npm install -g --unsafe-perm mean-cli
+
+12) Mocha nyan
+mocha test/case/login.js -R nyan

@@ -1,17 +1,17 @@
 'use strict';
 
-var Temps = require('../models/temps.js');
+var Permissions = require('../models/permissions.js');
 var HandleRes = require('../common/handleRes.js');
 
-function TempHandler() {
+function PermissionHandler() {
     
     var handleRes = new HandleRes();
 
-    this.getTemps = function(req, res) {
+    this.getPermissions = function(req, res) {
     
         // var pRange = req.query.price ? req.query.price.split(',') : '';
     
-        Temps
+        Permissions
             .find({
                 // name: new RegExp(req.query.name, 'i'),
                 // price: {
@@ -26,16 +26,16 @@ function TempHandler() {
                 if (err) return handleRes.error(res, err);
                 
                 if (result) {
-                    handleRes.send(res, 'Get list of temps', result);
+                    handleRes.send(res, 'Get list of permissions', result);
                 } else {
-                    handleRes.error(res, new Error('Not found temps'));
+                    handleRes.error(res, new Error('Not found permissions'));
                 }
                 
             });
     };
 
-    this.getTemp = function(req, res) {
-        Temps
+    this.getPermission = function(req, res) {
+        Permissions
             .findOne({_id: req.params.id})
             .limit(req.query.limit ? Number(req.query.limit) : 10)
             .sort(req.query.sort ? req.query.sort.replace(',', ' ') : null)
@@ -44,50 +44,50 @@ function TempHandler() {
                 if (err) return handleRes.error(res, err);
                 
                 if (result) {
-                    handleRes.send(res, 'Get temp', result);
+                    handleRes.send(res, 'Get permission', result);
                 } else {
-                    handleRes.error(res, new Error('Not found temp'));
+                    handleRes.error(res, new Error('Not found permission'));
                 }
                 
             });
     };
 
-    this.addTemp = function(req, res) {
-        Temps
+    this.addPermission = function(req, res) {
+        Permissions
             .create(req.body, function(err, result) {
                 if (err) return handleRes.error(res, err);
                 
                 if (result) {
-                    handleRes.send(res, 'Add new temp', result._id);
+                    handleRes.send(res, 'Add new permission', result._id);
                 } else {
-                    handleRes.error(res, new Error('Unable add temp'));
+                    handleRes.error(res, new Error('Unable add permission'));
                 }
                 
             });
     };
 
-    this.updateTemp = function(req, res) {
-        Temps
+    this.updatePermission = function(req, res) {
+        Permissions
             .findOneAndUpdate({ _id: req.params.id }, req.body, function(err, result) {
                 if (err) return handleRes.error(res, err);
                 
                 if (result) {
-                    handleRes.send(res, 'Update temp', result._id);
+                    handleRes.send(res, 'Update permission', result._id);
                 } else {
-                    handleRes.error(res, new Error('Unable update temp'));
+                    handleRes.error(res, new Error('Unable update permission'));
                 }
                 
             });
     };
 
-    this.deleteTemp = function(req, res) {
-        Temps
+    this.deletePermission = function(req, res) {
+        Permissions
             .remove({ _id: req.params.id }, function(err, result) {
                 if (err) return handleRes.error(res, err);
-                handleRes.send(res, 'Delete temp', result.result.n);
+                handleRes.send(res, 'Delete permission', result.result.n);
             });
     };
 
 }
 
-module.exports = TempHandler;
+module.exports = PermissionHandler;

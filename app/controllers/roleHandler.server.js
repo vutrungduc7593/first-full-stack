@@ -1,17 +1,17 @@
 'use strict';
 
-var Temps = require('../models/temps.js');
+var Roles = require('../models/roles.js');
 var HandleRes = require('../common/handleRes.js');
 
-function TempHandler() {
+function RoleHandler() {
     
     var handleRes = new HandleRes();
 
-    this.getTemps = function(req, res) {
+    this.getRoles = function(req, res) {
     
         // var pRange = req.query.price ? req.query.price.split(',') : '';
     
-        Temps
+        Roles
             .find({
                 // name: new RegExp(req.query.name, 'i'),
                 // price: {
@@ -26,16 +26,16 @@ function TempHandler() {
                 if (err) return handleRes.error(res, err);
                 
                 if (result) {
-                    handleRes.send(res, 'Get list of temps', result);
+                    handleRes.send(res, 'Get list of roles', result);
                 } else {
-                    handleRes.error(res, new Error('Not found temps'));
+                    handleRes.error(res, new Error('Not found roles'));
                 }
                 
             });
     };
 
-    this.getTemp = function(req, res) {
-        Temps
+    this.getRole = function(req, res) {
+        Roles
             .findOne({_id: req.params.id})
             .limit(req.query.limit ? Number(req.query.limit) : 10)
             .sort(req.query.sort ? req.query.sort.replace(',', ' ') : null)
@@ -44,50 +44,50 @@ function TempHandler() {
                 if (err) return handleRes.error(res, err);
                 
                 if (result) {
-                    handleRes.send(res, 'Get temp', result);
+                    handleRes.send(res, 'Get role', result);
                 } else {
-                    handleRes.error(res, new Error('Not found temp'));
+                    handleRes.error(res, new Error('Not found role'));
                 }
                 
             });
     };
 
-    this.addTemp = function(req, res) {
-        Temps
+    this.addRole = function(req, res) {
+        Roles
             .create(req.body, function(err, result) {
                 if (err) return handleRes.error(res, err);
                 
                 if (result) {
-                    handleRes.send(res, 'Add new temp', result._id);
+                    handleRes.send(res, 'Add new role', result._id);
                 } else {
-                    handleRes.error(res, new Error('Unable add temp'));
+                    handleRes.error(res, new Error('Unable add role'));
                 }
                 
             });
     };
 
-    this.updateTemp = function(req, res) {
-        Temps
+    this.updateRole = function(req, res) {
+        Roles
             .findOneAndUpdate({ _id: req.params.id }, req.body, function(err, result) {
                 if (err) return handleRes.error(res, err);
                 
                 if (result) {
-                    handleRes.send(res, 'Update temp', result._id);
+                    handleRes.send(res, 'Update role', result._id);
                 } else {
-                    handleRes.error(res, new Error('Unable update temp'));
+                    handleRes.error(res, new Error('Unable update role'));
                 }
                 
             });
     };
 
-    this.deleteTemp = function(req, res) {
-        Temps
+    this.deleteRole = function(req, res) {
+        Roles
             .remove({ _id: req.params.id }, function(err, result) {
                 if (err) return handleRes.error(res, err);
-                handleRes.send(res, 'Delete temp', result.result.n);
+                handleRes.send(res, 'Delete role', result.result.n);
             });
     };
 
 }
 
-module.exports = TempHandler;
+module.exports = RoleHandler;

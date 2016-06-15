@@ -2,70 +2,70 @@
 
 var superagent = require('superagent');
 var expect = require('expect.js');
-var Temp = require('../../app/models/temps.js');
+var Permission = require('../../app/models/permissions.js');
 
-describe('Unit test Temp Model', function() {
+describe('Unit test Permission Model', function() {
 	var id;
 	var encodedData = new Buffer('23032016:apikey23032016').toString('base64');
 	var authorizationHeader = 'Basic: ' + encodedData;
 	var endPoint = 'http://localhost:8080';
 	
-	var temp = new Temp();
+	var permission = new Permission();
 
-	it('add temp', function(done) {
-		superagent.post(endPoint + '/api/temps')
+	it('add permission', function(done) {
+		superagent.post(endPoint + '/api/permissions')
 			.set('Authorization', authorizationHeader)
-			.send(temp)
+			.send(permission)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
 				expect(typeof res.body).to.eql('object');
 				expect(res.body.status).to.eql('OK');
-				expect(res.body.message).to.eql('Add new temp');
+				expect(res.body.message).to.eql('Add new permission');
 				expect(res.body.data).not.to.eql(null);
 				id = res.body.data;
 				done();
 			});
 	});
 
-	it('get all temps', function(done) {
-		superagent.get(endPoint + '/api/temps')
+	it('get all permissions', function(done) {
+		superagent.get(endPoint + '/api/permissions')
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
 				expect(typeof res.body).to.eql('object');
 				expect(res.body.status).to.eql('OK');
-				expect(res.body.message).to.eql('Get list of temps');
+				expect(res.body.message).to.eql('Get list of permissions');
 				expect(res.body.data.length).to.above(0);
 				done();
 			});
 	});
 
-	it('get temp', function(done) {
-		superagent.get(endPoint + '/api/temps/' + id)
+	it('get permission', function(done) {
+		superagent.get(endPoint + '/api/permissions/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
 				expect(typeof res.body).to.eql('object');
 				expect(res.body.status).to.eql('OK');
-				expect(res.body.message).to.eql('Get temp');
+				expect(res.body.message).to.eql('Get permission');
 				expect(res.body.data._id.length).to.eql(24);
 				expect(res.body.data._id).to.eql(id);
 				done();
 			});
 	});
 
-	it('update temp', function(done) {
+	it('update permission', function(done) {
 	
-		// temp.name = 'Updated';
+		// permission.name = 'Updated';
 	
-		superagent.put(endPoint + '/api/temps/' + id)
+		superagent.put(endPoint + '/api/permissions/' + id)
 			.set('Authorization', authorizationHeader)
-			.send(temp)
+			.send(permission)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
 				expect(typeof res.body).to.eql('object');
 				expect(res.body.status).to.eql('OK');
-				expect(res.body.message).to.eql('Update temp');
+				expect(res.body.message).to.eql('Update permission');
 				expect(res.body.data.length).to.eql(24);
 				expect(res.body.data).to.eql(id);
 				done();
@@ -73,14 +73,14 @@ describe('Unit test Temp Model', function() {
 	});
 
 
-	it('check update temp', function(done) {
-		superagent.get(endPoint + '/api/temps/' + id)
+	it('check update permission', function(done) {
+		superagent.get(endPoint + '/api/permissions/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
 				expect(typeof res.body).to.eql('object');
 				expect(res.body.status).to.eql('OK');
-				expect(res.body.message).to.eql('Get temp');
+				expect(res.body.message).to.eql('Get permission');
 				expect(res.body.data._id.length).to.eql(24);
 				expect(res.body.data._id).to.eql(id);
 				// expect(res.body.data.name).to.eql('Updated');
@@ -88,14 +88,14 @@ describe('Unit test Temp Model', function() {
 			});
 	});
 
-	it('delete temp', function(done) {
-		superagent.del(endPoint + '/api/temps/' + id)
+	it('delete permission', function(done) {
+		superagent.del(endPoint + '/api/permissions/' + id)
 			.set('Authorization', authorizationHeader)
 			.end(function(e, res) {
 				expect(e).to.eql(null);
 				expect(typeof res.body).to.eql('object');
 				expect(res.body.status).to.eql('OK');
-				expect(res.body.message).to.eql('Delete temp');
+				expect(res.body.message).to.eql('Delete permission');
 				expect(res.body.data).to.eql(1);
 				done();
 			});

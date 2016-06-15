@@ -6,13 +6,24 @@ var HandleRes = require('../common/handleRes.js');
 function UserHandler() {
 
     var handleRes = new HandleRes();
-    
-    this.getUsers = function(req, res) {
+
+    this.login = function(req, res) {
         Users
-            .find({})
+            .findOne({
+                username: req.body.username,
+                password: req.body.password
+            })
             .exec(function(err, result) {
                 if (err) return handleRes.error(res, err);
-                handleRes.send(res, 'Get list of users', result);
+
+                if (result) {
+                    result.populate('_role', function(err, populatedUser) {
+                        if (err) return console.error(err);
+                        handleRes.send(res, 'Login', populatedUser);
+                    });
+                } else {
+                    handleRes.send(res, 'Login', result);
+                }
             });
     };
 
@@ -25,7 +36,7 @@ function UserHandler() {
                 handleRes.send(res, 'Update user', result._id);
             });
     };
-    
+
 }
 
 module.exports = UserHandler;

@@ -13,7 +13,15 @@ var User = new Schema({
     nbrClicks: {
         clicks: Number
     },
-    gcmIds: [String]
+    gcmIds: [String],
+    username: String,
+    password: String,
+    _role: { type: Schema.Types.ObjectId, ref: 'Role' }
+}, {
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at'
+    }
 });
 
 module.exports = mongoose.model('User', User);

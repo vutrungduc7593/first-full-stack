@@ -9,6 +9,8 @@ var OrderHandler = require(path + '/app/controllers/orderHandler.server.js');
 var GcmHandler = require(path + '/app/controllers/gcmHandler.server.js');
 var UserHandler = require(path + '/app/controllers/userHandler.server.js');
 var CategoryHandler = require(path + '/app/controllers/categoryHandler.server.js');
+var RoleHandler = require(path + '/app/controllers/roleHandler.server.js');
+var PermissionHandler = require(path + '/app/controllers/permissionHandler.server.js');
 // new Handler
 
 module.exports = function(app, passport) {
@@ -21,6 +23,8 @@ module.exports = function(app, passport) {
     var gcmHandler = new GcmHandler();
     var userHandler = new UserHandler();
     var categoryHandler = new CategoryHandler();
+    var roleHandler = new RoleHandler();
+    var permissionHandler = new PermissionHandler();
     // new Handler Instance
 
 	var auth = function(req, res, next) {
@@ -130,11 +134,8 @@ module.exports = function(app, passport) {
     app.route('/api/orders/:id/pay')
     	.put(orderHandler.payOrder);
     	
-    app.route('/api/users')
-    	.get(userHandler.getUsers);
-    	
-    app.route('/api/users/:id')
-    	.put(userHandler.updateUser);
+    app.route('/api/login')
+    	.post(userHandler.login);
     	
     app.route('/api/gcm/register')
     	.post(gcmHandler.register);
@@ -153,6 +154,24 @@ module.exports = function(app, passport) {
     	.get(categoryHandler.getCategory)
     	.put(categoryHandler.updateCategory)
     	.delete(categoryHandler.deleteCategory);
+
+    app.route('/api/roles')
+    	.get(roleHandler.getRoles)
+    	.post(roleHandler.addRole);
+
+    app.route('/api/roles/:id')
+    	.get(roleHandler.getRole)
+    	.put(roleHandler.updateRole)
+    	.delete(roleHandler.deleteRole);
+
+    app.route('/api/permissions')
+    	.get(permissionHandler.getPermissions)
+    	.post(permissionHandler.addPermission);
+
+    app.route('/api/permissions/:id')
+    	.get(permissionHandler.getPermission)
+    	.put(permissionHandler.updatePermission)
+    	.delete(permissionHandler.deletePermission);
 
     // new Route
 	
